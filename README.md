@@ -1,15 +1,10 @@
 # Database HTTP Utilities
 
-This Spring Boot project (the second part of the Splitwise application) is
+This Spring Boot project (the second part of the [Splitwise Application](https://github.com/AyushLodha71/Splitwise)) is
 responsible for connecting Splitwise to MySQL and exposes simple HTTP
 endpoints to operate on multiple MySQL databases using `JdbcTemplate`.
 It is intended as an internal/admin utility for quick operations (listing
 tables, selecting rows, inserting, DDL, etc.).
-
-> Warning: The project builds SQL dynamically from request parameters. This
-> is convenient for quick admin tasks but **is not safe** for untrusted inputs.
-> Validate and whitelist table/column names and avoid exposing these endpoints
-> publicly.
 
 ## Quick overview
 
