@@ -58,50 +58,59 @@ public class InsertData {
      * @param params column list fragment, e.g. "(col1, col2)"
      * @param info   values fragment, e.g. "('a','b')"
      */
-    private void getData(JdbcTemplate db, String table, String params, String info) {
+    private String getData(JdbcTemplate db, String table, String params, String info) {
         // Use backticks to escape table names (handles reserved keywords like "Groups")
         String sql = "INSERT INTO `" + table + "` " + params + " VALUES " + info;
-        db.update(sql);
+        System.out.println("sql -> " + sql);
+        try {
+            int rows = db.update(sql);
+            return "OK: inserted (rows affected) = " + rows;
+        } catch (Exception e) {
+            // print stacktrace to server console for debugging
+            e.printStackTrace();
+            // Return a helpful message to the HTTP client for diagnosis
+            return "ERROR executing SQL: " + sql + " -- " + e.getMessage();
+        }
     }
 
     @GetMapping("/db1/InsertData")
-    public void getDb1(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
-        getData(db1, table, params, info);
+    public String getDb1(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
+        return getData(db1, table, params, info);
     }
 
     @GetMapping("/db2/InsertData")
-    public void getDb2(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
-        getData(db2, table, params, info);
+    public String getDb2(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
+        return getData(db2, table, params, info);
     }
 
     @GetMapping("/db3/InsertData")
-    public void getDb3(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
-        getData(db3, table, params, info);
+    public String getDb3(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
+        return getData(db3, table, params, info);
     }
     
     @GetMapping("/db4/InsertData")
-    public void getDb4(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
-        getData(db4, table, params, info);
+    public String getDb4(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
+        return getData(db4, table, params, info);
     }
 
     @GetMapping("/db5/InsertData")
-    public void getDb5(@RequestParam String table, @RequestParam String params,@RequestParam String info) {
-        getData(db5, table, params, info);
+    public String getDb5(@RequestParam String table, @RequestParam String params,@RequestParam String info) {
+        return getData(db5, table, params, info);
     }
 
     @GetMapping("/db6/InsertData")
-    public void getDb6(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
-        getData(db6, table, params, info);
+    public String getDb6(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
+        return getData(db6, table, params, info);
     }
 
     @GetMapping("/db7/InsertData")
-    public void getDb7(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
-        getData(db7, table, params, info);
+    public String getDb7(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
+        return getData(db7, table, params, info);
     }
 
     @GetMapping("/db8/InsertData")
-    public void getDb8(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
-        getData(db8, table, params, info);
+    public String getDb8(@RequestParam String table,@RequestParam String params,@RequestParam String info) {
+        return getData(db8, table, params, info);
     }
 
 }

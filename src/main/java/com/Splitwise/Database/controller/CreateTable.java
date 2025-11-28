@@ -56,49 +56,58 @@ public class CreateTable {
      * @param table   table name (will be wrapped in backticks)
      * @param columns column definition fragment, e.g. "id INT PRIMARY KEY, name VARCHAR(255)"
      */
-    private void createTable(JdbcTemplate db, String table, String columns) {
+    private String createTable(JdbcTemplate db, String table, String columns) {
         // Use backticks to escape table names (handles reserved keywords like "Groups")
         String sql = String.format("CREATE TABLE `%s` (%s)", table, columns);
-        db.execute(sql);
+        System.out.println("sql -> " + sql);
+        try {
+            db.execute(sql);
+            return "OK: created table `" + table + "`";
+        } catch (Exception e) {
+            // print stacktrace to server console for debugging
+            e.printStackTrace();
+            // return helpful error to HTTP client for diagnosis
+            return "ERROR executing SQL: " + sql + " -- " + e.getMessage();
+        }
     }
 
     @GetMapping("/db1/CreateTable")
-    public void getDb1(@RequestParam String table, @RequestParam String columns) {
-        createTable(db1, table, columns);
+    public String getDb1(@RequestParam String table, @RequestParam String columns) {
+        return createTable(db1, table, columns);
     }
 
     @GetMapping("/db2/CreateTable")
-    public void getDb2(@RequestParam String table, @RequestParam String columns) {
-        createTable(db2, table, columns);
+    public String getDb2(@RequestParam String table, @RequestParam String columns) {
+        return createTable(db2, table, columns);
     }
 
     @GetMapping("/db3/CreateTable")
-    public void getDb3(@RequestParam String table, @RequestParam String columns) {
-        createTable(db3, table, columns);
+    public String getDb3(@RequestParam String table, @RequestParam String columns) {
+        return createTable(db3, table, columns);
     }
 
     @GetMapping("/db4/CreateTable")
-    public void getDb4(@RequestParam String table, @RequestParam String columns) {
-        createTable(db4, table, columns);
+    public String getDb4(@RequestParam String table, @RequestParam String columns) {
+        return createTable(db4, table, columns);
     }
 
     @GetMapping("/db5/CreateTable")
-    public void getDb5(@RequestParam String table, @RequestParam String columns) {
-        createTable(db5, table, columns);
+    public String getDb5(@RequestParam String table, @RequestParam String columns) {
+        return createTable(db5, table, columns);
     }
 
     @GetMapping("/db6/CreateTable")
-    public void getDb6(@RequestParam String table, @RequestParam String columns) {
-        createTable(db6, table, columns);
+    public String getDb6(@RequestParam String table, @RequestParam String columns) {
+        return createTable(db6, table, columns);
     }
 
     @GetMapping("/db7/CreateTable")
-    public void getDb7(@RequestParam String table, @RequestParam String columns) {
-        createTable(db7, table, columns);
+    public String getDb7(@RequestParam String table, @RequestParam String columns) {
+        return createTable(db7, table, columns);
     }
 
     @GetMapping("/db8/CreateTable")
-    public void getDb8(@RequestParam String table, @RequestParam String columns) {
-        createTable(db8, table, columns);
+    public String getDb8(@RequestParam String table, @RequestParam String columns) {
+        return createTable(db8, table, columns);
     }
 }
